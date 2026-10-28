@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAG Agent Chatbot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="logo">📚</span>
+        <div>
+          <strong>RAG Agent</strong>
+          <div class="muted small">Docs + Agentic search</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Knowledge base</div>
+        <div class="stat" id="chunk-stat">Chunks: —</div>
+        <button class="btn secondary" id="ingest-btn">Re-ingest data/docs</button>
+        <label class="upload">
+          <input type="file" id="file-input" accept=".pdf,.txt,.md,.csv" hidden />
+          <span class="btn secondary">Upload file</span>
+        </label>
+        <p class="muted small" id="ingest-msg"></p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">How it works</div>
+        <ol class="help">
+          <li>Put PDFs/TXT in <code>data/docs</code></li>
+          <li>Click <strong>Re-ingest</strong></li>
+          <li>Ask questions — agent searches docs</li>
+        </ol>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h1>Chat</h1>
+        <select id="model" class="model-select"></select>
+      </header>
+
+      <div class="banner" id="key-warning" hidden>
+        Set <code>GROQ_API_KEY</code> in <code>.env</code> and restart the server.
+      </div>
+
+      <section class="chat" id="chat">
+        <div class="empty" id="empty">
+          <div class="empty-icon">🔎</div>
+          <h2>Ask your documents</h2>
+          <p class="muted">The agent will search your knowledge base before answering.</p>
+          <div class="chips">
+            <button class="chip" data-q="What is this knowledge base about?">What is this about?</button>
+            <button class="chip" data-q="Summarize the main points in the documents.">Summarize docs</button>
+          </div>
+        </div>
+        <div class="messages" id="messages"></div>
+      </section>
+
+      <div class="status-bar" id="status-bar" hidden></div>
+
+      <form class="composer" id="composer">
+        <div class="composer-box">
+          <textarea id="input" rows="1" placeholder="Ask something about your documents…"></textarea>
+          <button type="submit" class="send" id="send" disabled>
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="hint">Agentic RAG · sources shown under each answer</p>
+      </form>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
